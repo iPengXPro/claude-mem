@@ -87,6 +87,26 @@ Copy-Item -Path ".\plugin\*" -Destination "$env:USERPROFILE\.claude\plugins\cach
 | `CLAUDE_MEM_OPENROUTER_SITE_URL` | 可选，站点 URL | 留空 |
 | `CLAUDE_MEM_OPENROUTER_APP_NAME` | 应用名称 | `claude-mem` |
 
+### Chroma 向量数据库配置（可选）
+
+Chroma 用于语义搜索和向量嵌入，如果遇到问题（如数据库锁定错误），可以禁用：
+
+```json
+{
+  "CLAUDE_MEM_CHROMA_ENABLED": "false"
+}
+```
+
+**禁用 Chroma 后的影响**：
+- 观察存储、上下文注入等核心功能不受影响
+- 语义搜索（按概念检索）将回退到关键词匹配
+- 向量嵌入功能不可用
+
+**如果需要启用 Chroma**：
+1. 确保已安装 uv：`curl -LsSf https://astral.sh/uv/install.sh | sh`
+2. 设置 `CLAUDE_MEM_CHROMA_ENABLED: "true"`
+3. 重启 Worker 服务
+
 ## 步骤 6：启动 Worker 服务
 
 ### 方法 1：通过 Claude Code 自动启动
