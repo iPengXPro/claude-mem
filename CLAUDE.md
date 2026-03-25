@@ -93,6 +93,11 @@ This architecture preserves the open-source nature of the project while enabling
 
 No need to edit the changelog ever, it's generated automatically.
 
+## Local Git Rules
+
+- **Commit author**: Do NOT add "Co-Authored-By" or any author information to commit messages
+- **Commit format**: Use conventional commits (feat/fix/docs/chore/etc.)
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
