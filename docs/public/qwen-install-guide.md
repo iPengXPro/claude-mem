@@ -39,12 +39,17 @@ npm run build
 ### Windows (使用 PowerShell 或手动复制)
 
 ```powershell
-# 复制 plugin 目录到 marketplace
+# 方法 1：使用 Robocopy（推荐，Windows 内置）
+robocopy ".\plugin" "$env:USERPROFILE\.claude\plugins\marketplaces\thedotmack\plugin" /E /COPY:DAT /PURGE /NFL /NDL /NJH /NJS
+
+# 方法 2：使用 Copy-Item（先清理目标目录）
+Remove-Item -Path "$env:USERPROFILE\.claude\plugins\marketplaces\thedotmack\plugin" -Recurse -Force -ErrorAction SilentlyContinue
 Copy-Item -Path ".\plugin\*" -Destination "$env:USERPROFILE\.claude\plugins\marketplaces\thedotmack\plugin" -Recurse -Force
 
-# 复制 plugin 目录到 cache (带版本号)
+# 同步到缓存目录（带版本号）
 $version = (Get-Content ".\plugin\.claude-plugin\plugin.json" | ConvertFrom-Json).version
-Copy-Item -Path ".\plugin\*" -Destination "$env:USERPROFILE\.claude\plugins\cache\thedotmack\claude-mem\$version\plugin" -Recurse -Force
+Remove-Item -Path "$env:USERPROFILE\.claude\plugins\cache\thedotmack\claude-mem\$version" -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item -Path ".\plugin\*" -Destination "$env:USERPROFILE\.claude\plugins\cache\thedotmack\claude-mem\$version" -Recurse -Force
 ```
 
 ### 或者手动复制
